@@ -27,12 +27,17 @@ export class StoragePage {
   }
 
    // set a key/value
-   storage.set('name', 'Max');
+   setKeyValue(){
+   this.storage.set('name', 'Max');
+   }
 
    // Or to get a key/value pair
-   storage.get('age').then((val) => {
+   getKeyValue(){
+   this.storage.get('age').then((val) => {
      console.log('Your age is', val);
    });
+  }
+  
  }
 
 }
