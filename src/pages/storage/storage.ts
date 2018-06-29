@@ -35,9 +35,6 @@ export class StoragePage {
    getKeyValue(){
    this.storage.get('age').then((val) => {
      console.log('Your age is', val);
-   });
-  }
-  
- }
-
+          });
+    }
 }

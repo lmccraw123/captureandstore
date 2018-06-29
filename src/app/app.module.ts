@@ -12,6 +12,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ImageProvider } from '../providers/image/image';
+import { Camera } from '@ionic-native/camera';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { ImageProvider } from '../providers/image/image';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -39,7 +40,8 @@ import { ImageProvider } from '../providers/image/image';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ImageProvider
+    ImageProvider,
+    Camera
   ]
 })
 export class AppModule {}
