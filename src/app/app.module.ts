@@ -13,6 +13,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ImageProvider } from '../providers/image/image';
 import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+
 
 
 @NgModule({
@@ -41,7 +45,10 @@ import { Camera } from '@ionic-native/camera';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ImageProvider,
-    Camera
+    Camera,
+    File,
+    Transfer,
+    FilePath,
   ]
 })
 export class AppModule {}
