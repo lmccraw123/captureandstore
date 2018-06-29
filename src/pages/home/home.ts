@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+import { FilePath } from '@ionic-native/file-path';
 
 @Component({
   selector: 'page-home',
@@ -10,7 +11,7 @@ import { File } from '@ionic-native/file';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private camera: Camera, private transfer: FileTransfer, private file: File) {
+  constructor(public navCtrl: NavController, private camera: Camera, private transfer: FileTransfer, private file: File, private filePath: FilePath) {
 
   }
 
@@ -66,6 +67,12 @@ download() {
   }, (error) => {
     // handle error
   });
+}
+
+onFilePath(){
+  this.filePath.resolveNativePath(path)
+  .then(filePath => console.log(filePath))
+  .catch(err => console.log(err));
 }
 
 }
