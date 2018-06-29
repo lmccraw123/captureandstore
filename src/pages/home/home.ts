@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular'
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
@@ -10,8 +10,19 @@ import { FilePath } from '@ionic-native/file-path';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  cordova:any;
 
-  constructor(public navCtrl: NavController, private camera: Camera, private transfer: FileTransfer, private file: File, private filePath: FilePath) {
+  constructor(
+    public navCtrl: NavController, 
+    private camera: Camera, 
+    private transfer: FileTransfer, 
+    private file: File, 
+    private filePath: FilePath,
+    public actionSheetCtrl: ActionSheetController,
+    public toastCtrl: ToastController,
+    public platform: Platform,
+    public loadingCtrl: LoadingController    
+  ) {
 
   }
 
@@ -73,6 +84,34 @@ onFilePath(){
   this.filePath.resolveNativePath(path)
   .then(filePath => console.log(filePath))
   .catch(err => console.log(err));
+}
+
+
+//option to choose to upload via library or camera 
+public presentActionSheet() {
+  let actionSheet = this.actionSheetCtrl.create({
+    title: 'Select Image Source',
+    buttons: [
+      {
+        text: 'Load from Library',
+        handler: () => {
+          this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+        }
+      },
+      {
+        text: 'Use Camera',
+        handler: () => {
+          this.takePicture(this.camera.PictureSourceType.CAMERA);
+        }
+      },
+      {
+        text: 'Cancel',
+        role: 'cancel'
+      }
+    ]
+  });
+  actionSheet.present();
+}
 }
 
 }
