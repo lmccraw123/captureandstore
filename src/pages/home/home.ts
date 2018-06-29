@@ -26,8 +26,9 @@ export class HomePage {
 
   }
 
-  const options: CameraOptions = {
+  options: CameraOptions = {
     quality: 100,
+    sourceType: sourceType,
     destinationType: this.camera.DestinationType.FILE_URI,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE
@@ -37,6 +38,18 @@ export class HomePage {
   this.camera.getPicture(this.options).then((imageData) => {
    // imageData is either a base64 encoded string or a file URI
    // If it's base64 (DATA_URL):
+   if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
+    this.filePath.resolveNativePath(imagePath)
+      .then(filePath => {
+        let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
+        let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
+        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+      });
+  } else {
+    var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+    var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+    this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+  }
    let base64Image = 'data:image/jpeg;base64,' + imageData;
   }, (err) => {
    // Handle error
