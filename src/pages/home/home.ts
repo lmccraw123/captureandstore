@@ -218,4 +218,74 @@ public pathForImage(img) {
   }
 }
 
+the image to a remote serverJavaScript
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+public uploadImage() {
+  // Destination URL
+  var url = "http://yoururl/upload.php";
+ 
+  // File for Upload
+  var targetPath = this.pathForImage(this.lastImage);
+ 
+  // File name only
+  var filename = this.lastImage;
+ 
+  var options = {
+    fileKey: "file",
+    fileName: filename,
+    chunkedMode: false,
+    mimeType: "multipart/form-data",
+    params : {'fileName': filename}
+  };
+ 
+  const fileTransfer: TransferObject = this.transfer.create();
+ 
+  this.loading = this.loadingCtrl.create({
+    content: 'Uploading...',
+  });
+  this.loading.present();
+ 
+  // Use the FileTransfer to upload the image
+  fileTransfer.upload(targetPath, url, options).then(data => {
+    this.loading.dismissAll()
+    this.presentToast('Image succesful uploaded.');
+  }, err => {
+    this.loading.dismissAll()
+    this.presentToast('Error while uploading file.');
+  });
+
+  
 }
